@@ -42,21 +42,25 @@ class user_model extends CI_Model
         
         }//end of function
 
-        public function update($id,$update_arr)
+        public function update($id,$field)
         {
-            $this->db->where('id',$id);
-            $query=$this->db->update('registration',$update_arr);    
-            return $query->result();
+            
+            $this->db->where('id',$id);           
+            $result=$this->db->update('registration',$field);
+            // echo $this->db->last_query();
+            return $result;
 
         }//end of function
 
-        public function delete($id)
+        public function delete($id,$post)
         {
 
             $this->db->where('id',$id);
             $query=$this->db->delete('registration');
-            return $query->result();
+            return $query;
 
         }//end of function
+
+        
 
 }//end of class

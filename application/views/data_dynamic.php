@@ -87,10 +87,31 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button> <strong>Welcome to the database</strong> YOU CAN VIEW,CHANGE OR DELETE HERE </div>
+                  <?php 
+                      if($this->session->flashdata('viewtable_msg'))
+                      {
+                  ?>
+                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('viewtable_msg'); ?></div>
+                  <?php
+                      }
+                  ?>
+
+                  <?php 
+                      if($this->session->flashdata('deletetable_msg'))
+                      {
+                  ?>
+                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('deletetable_msg'); ?></div>
+                  <?php
+                      }
+                  ?>
+                  
                   <div class="x_content">
+                    
+                  <div class="x_content">
+
+
                     <p class="text-muted font-13 m-b-30">
-                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
+                      
                     </p>
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
@@ -107,6 +128,8 @@
 
                       <tbody>
                         <?php 
+
+                            
                                foreach($data as $row) 
                                { 
                         ?>
@@ -124,8 +147,8 @@
                             <a href="<?php echo base_url('jc/updatedata/').$row->id; ?>"> 
                             <i class="fa fa-edit" aria-hidden="true"></i>
                           </a>
-                          <a href="<?php echo base_url('jc/data_dynamic/'). $row->id; ?>">
-                          <i class="fa fa-trash" aria-hidden="true"></i>
+                          <a href="<?php echo base_url('jc/deleteData/'). $row->id;?>">
+                          <i class="fa fa-trash" aria-hidden="true"  name="delete"></i>
                         </td>
                            <!-- </td> -->
 

@@ -46,21 +46,19 @@ class Jc extends CI_Controller {
 	{
 		$this->session->unset_userdata('user_details');		
 		redirect('jc/login');
-		die();
+		//die();
 	}
 
 	
 	public function authentication()
 	{
         $post_arr=$this->input->post();
-		/*$username1=$post_arr['username'];
-		$password1=$post_arr['password'];
-		$email1=$post_arr['email'];*/
+		
 		$username=$post_arr['username'];
 		$password=$post_arr['password'];
-		//$id=$post_arr['id'];
-		//$user_details=$this->user_model->view($id);
+		
 		$user_details=$this->user_model->checkUser($username,$password);
+
 
 		if(count($user_details))
 		{
@@ -68,14 +66,16 @@ class Jc extends CI_Controller {
 			$args['username']=$user_details->username;
 			$args['name']=$user_details->firstname.' '.$user_details->lastname;
 			$this->session->set_userdata('user_details',$args);
+
+
 			redirect('jc/dashboard');
-		    //die();
+		    die();
 		}
 		else
 		{
 			$this->session->set_flashdata('login_error','Username and Password doesnot match');
 			redirect('jc/login');
-			//die();
+			die();
 		}
 		
 	}//end of function
@@ -105,7 +105,8 @@ class Jc extends CI_Controller {
 		{
 			$msg='User Registration successfull, <a href="'.base_url().'/jc/login">Login</a>';
 			$this->session->set_flashdata('success_message',$msg);
-			redirect('jc/successMessage');		
+			redirect('jc/successMessage');	
+			die();	
 		}
 	}
 
@@ -132,6 +133,7 @@ class Jc extends CI_Controller {
 
 	public function viewdata($id)
 	{
+
 		if(!$this->session->userdata('user_details'))
 		{
 			$this->session->set_flashdata('login_error','Username and Password doesnot match');
@@ -147,11 +149,8 @@ class Jc extends CI_Controller {
     }//end of function    
 
 
-	public function updateData()
+	public function updateData($id)
 	{
-
-
-
 		
 		if(!$this->session->userdata('user_details'))
 		{
@@ -163,25 +162,37 @@ class Jc extends CI_Controller {
 		$data=array();	
 		$data=$userdata;
 	
-		//$data['update_specific_data']=$this->user_model->update($id);
-		$id=$this->input->get('id');
-		$update_arr= array(
-			'firstname' =>$this->input->get('firstname'),
-			'phone' => $this->input->get('phone'),
-			'email' => $this->input->get('email'),
-			'address'=>$this->input->get('address'),
-			'username'=>$this->input->get('username'),
-			'password'=>$this->input->get('password')
-
-		);
-		$data['specific_data']=$this->user_model->update($id,$update_arr);
-		
-		$this->load->view('update_data');
+		$data['specific_data']=$this->user_model->viewSpecificData($id);	
+		$this->load->view('update_data',$data);
 
 	}//end of function
+
+	public function update_action_data($id)
+	{
+		if(!$this->session->userdata('user_details'))
+		{
+			$this->session->set_flashdata('login_error','Username and Password doesnot match');
+			redirect('jc/login');
+			die();
+		}//end of if
+		$userdata=$this->session->userdata('user_details');
+		$data=array();	
+		$data=$userdata;			
+		$post=$this->input->post();
+		unset($post['update']);
+		$result=$this->user_model->update($id,$post);
+		if($result==1)
+		{
+			$this->session->set_flashdata('viewtable_msg','Userdata updated');
+			redirect('jc/viewtable');
+			die();
+		}
+
+	}
+
 	public function deleteData($id)
 	{
-		$id=$this->input->get('id');
+		
 		if(!$this->session->userdata('user_details'))
 		{
 			$this->session->set_flashdata('login_error','Username and Password doesnot match');
@@ -191,8 +202,27 @@ class Jc extends CI_Controller {
 		$userdata=$this->session->userdata('user_details');
 		$data=array();	
 		$data=$userdata;
-		$data['delete_specific_data']=$this->user_model->delete($id);
-		$this->load->view('delete_page',$data);
+		$post=$this->input->post();
+		unset($post['delete']);
+		$query=$this->user_model->delete($id,$post);
+		if($query==1)
+		{
+		$this->session->set_flashdata('deletetable_msg','Userdata deleted successfully');
+	    redirect('jc/viewtable',$data);
+	    die();
+		}
+	    //success message print
+	    //$post=$this->input->post();
+		// unset($post['delete']);
+		// echo $str=$this->user_model->delete($id,$post);
+		
+		// if($str)
+		// {
+		// 	$msg='Deletion successfull';
+		// 	$this->session->set_flashdata('delete_message',$msg);
+		// 	$this->load->view('Success.php');		
+		// }
 	}//end of fuunction
+
         
 }//end of class

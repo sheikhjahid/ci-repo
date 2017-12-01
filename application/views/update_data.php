@@ -62,6 +62,7 @@
         <?php
             require_once 'layout/left-bar.php';
             require_once 'layout/top-bar.php';
+            
         ?>
 
         <!-- top navigation -->
@@ -83,9 +84,8 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>UPDATE PORTAL FOR USER:<small><!-- //php code --></small></h2>
+                    <h2>UPDATE PORTAL FOR USER:<small><?php foreach($specific_data as $row){  echo $row->firstname.' '.$row->lastname; } ?></small></h2>
                   </br>
-                    
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -104,33 +104,36 @@
                     <div class="clearfix"></div>
                   </div>
                  
-                  <form action="<?php echo base_url('jc/data_dynamic');?>" method="POST">
+                  
                   <?php foreach($specific_data as $value){ ?>
+                  <form action="<?php echo base_url('jc/update_action_data/').$row->id;?>" method="POST">
                   <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>NAME</i></span>
-                  <input type="text" class="form-control" placeholder="change your name.."  name= "change_name" aria-describedby="basic-addon1"  >
+                  <span class="input-group-addon" id="basic-addon1"><i>First NAME</i></span>
+                  <input type="text" class="form-control" placeholder="change your first name.."  name= "firstname" aria-describedby="basic-addon1" value="<?php echo $value->firstname; ?>"  >
                   </div>
 
                   <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>Last NAME</i></span>
+                  <input type="text" class="form-control" placeholder="change your last name.."  name= "lastname" aria-describedby="basic-addon1" value="<?php echo $value->lastname; ?>"  >
+                  </div>
+
+
+                  <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1"><i>PHONE</i></span>
-                  <input type="text" class="form-control" placeholder="change your phone.."  name= "change_phone" aria-describedby="basic-addon1"   >
+                  <input type="text" class="form-control" placeholder="change your phone.."  name= "phone" aria-describedby="basic-addon1" value="<?php echo $value->phone; ?>" >
                   </div>
                   <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1"><i>EMAIL</i></span>
-                  <input type="text" class="form-control" placeholder="change your email.."  name= "change_email" aria-describedby="basic-addon1"  >
+                  <input type="text" class="form-control" placeholder="change your email.."  name= "email" aria-describedby="basic-addon1" value="<?php echo $value->email; ?>" >
                   </div>
                   <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1"><i>ADDRESS</i></span>
-                  <input type="text" class="form-control" placeholder="change your address.."  name= "change_address" aria-describedby="basic-addon1"  >
+                  <input type="text" class="form-control" placeholder="change your address.."  name= "address" aria-describedby="basic-addon1" value="<?php echo $value->address; ?>" >
                   </div>
-                  <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>USERNAME</i></span>
-                  <input type="text" class="form-control" placeholder="change your username.."  name= "change_username" aria-describedby="basic-addon1"  >
-                  </div>
-                 
+                  
                  <div class="input-group">
                  <span class="input-group-addon" id="basic-addon1"><i>PASSWORD</i></span>
-                 <input type="text" class="form-control"  placeholder="change your password.."  name= "change_password" aria-describedby="basic-addon1" ></center>
+                 <input type="password" class="form-control"  placeholder="change your password.."  name= "password" aria-describedby="basic-addon1" value="<?php echo $value->password; ?>"></center>
               </div>
               <div>
               </div>
@@ -142,7 +145,7 @@
             <div>
             </div>
             <?php } ?>
-          </form>
+          
             </div>
           </div>
          

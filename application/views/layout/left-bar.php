@@ -13,8 +13,7 @@
                 </div>
                 <div class="profile_info">
                   <span>Welcome,</span>
-                  <h2><?php echo $name; ?></h2>
-                  <!-- <h2><?php echo $name; ?></h2> -->
+                  <h2><?php echo (trim($name)==''?$username:$name); ?></h2>
                 </div>
               </div>
               <!-- /menu profile quick info -->
