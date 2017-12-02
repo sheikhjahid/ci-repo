@@ -9,11 +9,11 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                    <img src="images/img.jpg" alt=""><?php echo $username; ?>
+                    <img src="<?php echo $profile_image; ?>" alt=""><?php echo $username; ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="<?php echo base_url('jc/profile/').$username; ?>"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>

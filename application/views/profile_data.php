@@ -8,31 +8,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>DataTables | Gentelella</title>
-    
     <style>
-
-    input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
+    .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
 }
 
-    .wrapper{
-  text-align: left;
-}
-.btn-default
+.circle
 {
-  top: 90%;
-  left:80%;
-  position:absolute;
-
+  height:100px;
+  width:100px;
+  background-color:blue;
+  border-radius:50%;
 }
 
-  </style>
+.fa-instagram{
+
+size:50%;
+height: 50px;
+width: 30px;
+background:#125688; ;
+color: white;
+border-radius:20%;
+position:absolute;
+cursor:pointer;
+right:20%;
+left:52%;
+bottom:45%;
+}
+
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+button:hover, a:hover {
+    opacity: 0.7;
+}
+    </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -62,7 +96,6 @@
         <?php
             require_once 'layout/left-bar.php';
             require_once 'layout/top-bar.php';
-            
         ?>
 
         <!-- top navigation -->
@@ -76,16 +109,26 @@
                 
               </div>
 
-              
-            </div>
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+           </div>
+          
+          
             <div class="clearfix"></div>
-            <h2>REGISTRATION TABLE<small><!-- /.php code -->   </small></h2>
+
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>UPDATE PORTAL FOR USER:<small><?php foreach($specific_data as $row){  echo $row->firstname.' '.$row->lastname; } ?></small></h2>
-                  </br>
+                    <h2><i><b>PROFILE DETAILS OF USER : </b></i><?php foreach($profile_data as $value){ ?> <strong><b><i> <?php echo $value->firstname.' '.$value->lastname; }?> </i></b></strong></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -103,53 +146,43 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                 
-                  
-                  <?php foreach($specific_data as $value){ ?>
-                  <form action="<?php echo base_url('jc/update_action_data/').$row->id;?>" method="POST">
-                  <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>FIRST NAME</i></span>
-                  <input type="text" class="form-control" placeholder="change your first name.."  name= "firstname" aria-describedby="basic-addon1" value="<?php echo $value->firstname; ?>"  >
-                  </div>
+      <div class="container">
+        
+      <div class="card">
+       <?php echo form_open_multipart('jc/do_upload');?>
+    <!--  <a href="<?php //echo base_url('jc\do_upload'); ?>" class="fa fa-instagram" type="file"></a> -->
+      <input type="file" name="userfile" size="20" class="fa fa-instagram">
+    </br>
+  </br>
+   
+<p><?php echo anchor('upload', 'Upload Your Profile Picture'); ?></p>
+    <input type="submit" value="UPLOAD" name="upload">
+    </form>
 
-                  <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>LAST NAME</i></span>
-                  <input type="text" class="form-control" placeholder="change your last name.."  name= "lastname" aria-describedby="basic-addon1" value="<?php echo $value->lastname; ?>"  >
-                  </div>
 
+   <?php foreach($profile_data as $value) {?> 
+   <img src="<?php echo $profile_image; ?>" alt="<?php $value->username; ?>" class="circle" ></img>
+  <h1><?php echo $value->firstname.' '.$value->lastname; ?></h1>
+  <p class="title">DATABASE DESIGNER</p>
+  <p><strong>ADDRESS:<?php echo $value->address; ?></strong></p>
+  <p><strong>EMAIL:<?php echo $value->email; ?></strong></p>
+  <a href="#"><i class="fa fa-dribbble"></i></a> 
+  <a href="#"><i class="fa fa-twitter"></i></a> 
+  <a href="#"><i class="fa fa-linkedin"></i></a> 
+  <a href="#"><i class="fa fa-facebook"></i></a> 
+  <p><strong>Contact:<?php echo $value->phone; ?></strong></p>
+  <?php } ?>
+</div>     
 
-                  <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>PHONE</i></span>
-                  <input type="text" class="form-control" placeholder="change your phone.."  name= "phone" aria-describedby="basic-addon1" value="<?php echo $value->phone; ?>" >
-                  </div>
-                  <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>EMAIL</i></span>
-                  <input type="text" class="form-control" placeholder="change your email.."  name= "email" aria-describedby="basic-addon1" value="<?php echo $value->email; ?>" >
-                  </div>
-                  <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1"><i>ADDRESS</i></span>
-                  <input type="text" class="form-control" placeholder="change your address.."  name= "address" aria-describedby="basic-addon1" value="<?php echo $value->address; ?>" >
-                  </div>
-                  
-                 <div class="input-group">
-                 <span class="input-group-addon" id="basic-addon1"><i>PASSWORD</i></span>
-                 <input type="password" class="form-control"  placeholder="change your password.."  name= "password" aria-describedby="basic-addon1" value="<?php echo $value->password; ?>"></center>
+</div>
+</div>
+
+                </div>
+
+                </div>
               </div>
-              <div>
-              </div>
-            </br>
-          </br>
-             <div class="wrapper">
-              <input type="submit" name="update" class="btn btn-default" value="UPDATE">
             </div>
-            <div>
-            </div>
-            <?php } ?>
-          
-            </div>
-          </div>
          
-        </div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -160,9 +193,10 @@
           <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->
-      </div>
+      <!-- </div>
     </div>
-
+  </div> -->
+</div>
     <!-- jQuery -->
     <script src="<?php echo base_url('/'); ?>public/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->

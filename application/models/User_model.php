@@ -43,11 +43,9 @@ class user_model extends CI_Model
         }//end of function
 
         public function update($id,$field)
-        {
-            
+        {            
             $this->db->where('id',$id);           
             $result=$this->db->update('registration',$field);
-            // echo $this->db->last_query();
             return $result;
 
         }//end of function
@@ -61,6 +59,15 @@ class user_model extends CI_Model
 
         }//end of function
 
+        public function profile($username)
+        {
+            $this->db->select('*');
+            $this->db->where('username',$username);
+            $query=$this->db->get('registration');
+            return $query->result();
+        }
         
+
+
 
 }//end of class

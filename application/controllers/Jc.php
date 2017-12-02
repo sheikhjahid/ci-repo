@@ -26,7 +26,6 @@ class Jc extends CI_Controller {
 	public function index()
 	{
 		///$this->get_value();
-
 		$this->load->view('welcome_message');
 	}
 	public function login()
@@ -62,8 +61,10 @@ class Jc extends CI_Controller {
 
 		if(count($user_details))
 		{
+			$args['id']=$user_details->id;
 			$args['email']=$user_details->email;
 			$args['username']=$user_details->username;
+			$args['profile_image']=base_url().'/uploads/'.$user_details->image_path;
 			$args['name']=$user_details->firstname.' '.$user_details->lastname;
 			$this->session->set_userdata('user_details',$args);
 
@@ -211,18 +212,63 @@ class Jc extends CI_Controller {
 	    redirect('jc/viewtable',$data);
 	    die();
 		}
-	    //success message print
-	    //$post=$this->input->post();
-		// unset($post['delete']);
-		// echo $str=$this->user_model->delete($id,$post);
-		
-		// if($str)
-		// {
-		// 	$msg='Deletion successfull';
-		// 	$this->session->set_flashdata('delete_message',$msg);
-		// 	$this->load->view('Success.php');		
-		// }
+	    
 	}//end of fuunction
+
+	public function profile($username)
+	{
+		if(!$this->session->userdata('user_details'))
+		{
+			$this->session->set_flashdata('login_error','Username and Password doesnot match');
+			redirect('jc/login');
+			die();
+		}//end of if
+		$userdata=$this->session->userdata('user_details');
+		$data=array();	
+		$data=$userdata;
+		$post=$this->input->post();
+		$data['profile_data']=$this->user_model->profile($username);
+		$this->load->view('profile_data',$data);
+	}
+
+	public function do_upload() { 
+
+
+		if(!$this->session->userdata('user_details'))
+		{
+			$this->session->set_flashdata('login_error','Username and Password doesnot match');
+			redirect('jc/login');
+			die();
+		}//end of if
+		$userdata=$this->session->userdata('user_details');
+		$data=array();	
+		$data=$userdata;
+
+         $config['upload_path']   = './uploads/'; 
+         $config['allowed_types'] = 'gif|jpg|png'; 
+         $config['max_size']      = '100'; 
+         $config['max_width']     = '1024'; 
+         $config['max_height']    = '768';  
+         $config['file_name']    = $userdata['username'].'_profile';  
+         $this->load->library('upload', $config);
+			
+        if ( ! $this->upload->do_upload('userfile')) 
+        {
+            $error = array('error' => $this->upload->display_errors()); 
+            $data['error']=$error;            
+            redirect('jc/profile', $data); 
+            die();
+        }			
+        else {
+
+            $data['upload_data']= $this->upload->data(); 
+            $zfile = $data['upload_data']['full_path']; 
+            $field['image_path']=basename($zfile);
+            chmod($zfile,0777);
+            $this->user_model->update($userdata['id'],$field);
+            redirect('jc/profile/'.$userdata['username'], $data); 
+        } 
+      }//end of function 
 
         
 }//end of class
