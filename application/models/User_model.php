@@ -67,7 +67,12 @@ class user_model extends CI_Model
             return $query->result();
         }
         
+       public function insertTable($post)
+       {
+        
+        $query=$this->db->insert('registration',$post);
 
+        return $query;
 
-
+       }
 }//end of class

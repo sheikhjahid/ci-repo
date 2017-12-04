@@ -26,23 +26,25 @@
 
 .fa-instagram{
 
-size:50%;
-height: 50px;
-width: 30px;
-background:#125688; ;
-color: white;
-border-radius:20%;
+size:70%;
+height: 11px;
+width: 11px;
+background:#125688; 
+color: pink;
+border-radius:100%;
 position:absolute;
 cursor:pointer;
+top:50%;
 right:20%;
 left:52%;
 bottom:45%;
+opacity:1.0;
 }
 
-.title {
+/*.title {
     color: grey;
     font-size: 18px;
-}
+}*/
 
 button {
     border: none;
@@ -57,11 +59,11 @@ button {
     font-size: 18px;
 }
 
-a {
+/*a {
     text-decoration: none;
     font-size: 22px;
     color: black;
-}
+}*/
 
 button:hover, a:hover {
     opacity: 0.7;
@@ -93,16 +95,17 @@ button:hover, a:hover {
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <?php
+        
+<?php
             require_once 'layout/left-bar.php';
             require_once 'layout/top-bar.php';
         ?>
-
         <!-- top navigation -->
        
 
         <!-- page content -->
         <div class="right_col" role="main">
+
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -146,12 +149,12 @@ button:hover, a:hover {
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-      <div class="container">
+      <!-- <div class="container"> -->
         
       <div class="card">
        <?php echo form_open_multipart('jc/do_upload');?>
-    <!--  <a href="<?php //echo base_url('jc\do_upload'); ?>" class="fa fa-instagram" type="file"></a> -->
-      <input type="file" name="userfile" size="20" class="fa fa-instagram">
+    <!-- <!--  <a href="<?php //echo base_url('jc\do_upload'); ?>" class="fa fa-instagram" type="file"></a> -->
+      <input type="file" name="userfile"  height="20px" size="30px"  class="fa fa-instagram">
     </br>
   </br>
    
@@ -173,7 +176,7 @@ button:hover, a:hover {
   <p><strong>Contact:<?php echo $value->phone; ?></strong></p>
   <?php } ?>
 </div>     
-
+</div>
 </div>
 </div>
 
@@ -227,5 +230,7 @@ button:hover, a:hover {
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('/'); ?>public/build/js/custom.min.js"></script>
 
+</div>
+</div>
   </body>
 </html>

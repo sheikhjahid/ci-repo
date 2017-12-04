@@ -226,7 +226,7 @@ class Jc extends CI_Controller {
 		$userdata=$this->session->userdata('user_details');
 		$data=array();	
 		$data=$userdata;
-		$post=$this->input->post();
+		//$post=$this->input->post();
 		$data['profile_data']=$this->user_model->profile($username);
 		$this->load->view('profile_data',$data);
 	}
@@ -268,7 +268,68 @@ class Jc extends CI_Controller {
             $this->user_model->update($userdata['id'],$field);
             redirect('jc/profile/'.$userdata['username'], $data); 
         } 
+
+      
+
+
       }//end of function 
+
+      public function insertUser()
+      {
+
+      	if(!$this->session->userdata('user_details'))
+      	{
+
+      		$this->session->set_flashdata('login_error','Username and Password does not match');
+      		redirect('jc/login');
+      		die();
+
+      	}//end of if
+
+      	$userdata=$this->session->userdata('user_details');
+      	$data=array();
+      	$data=$userdata;
+      	/*$post=$this->input->post();
+      	unset('insertTable');
+      	$query=$this->user_model->insertTable($post);
+      	if($query==1)
+      	{
+      		$this->session->set_flashdata('insert_msg','Data inserted successfully');
+      		redirect('jc/viewtable',$data);
+      		die();
+      	}*/
+      	//$data['insert_data']=$this->user_model->inserTable_();
+      	$this->load->view('insertUserTable',$data);
+
+      }
+
+
+      public function insert_action_data()
+      {
+      	if(!$this->session->userdata('user_details'))
+      	{
+      		$this->session->set_flashdata('login_error','Username and Password does not match');
+      		redirect('jc/login');
+      		die();
+      	}
+      	
+      	$userdata=$this->session->userdata('user_details');
+      	$data=array();
+      	$data=$userdata;
+
+      	$post=$this->input->post();
+      	unset($post['insertTable']);
+      	$query=$this->user_model->insertTable($post);
+      	if($query==1)
+      	{
+      		$this->session->set_flashdata('insert_msg','User data inserted');
+      		redirect('jc/viewtable',$data);
+      		die();
+      	}	
+      	
+     }//end of function
+
+      
 
         
 }//end of class

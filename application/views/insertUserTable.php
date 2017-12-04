@@ -9,6 +9,30 @@
 
     <title>DataTables | Gentelella</title>
     
+    <style>
+
+    input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+    .wrapper{
+  text-align: left;
+}
+.btn-default
+{
+  top: 90%;
+  left:80%;
+  position:absolute;
+
+}
+
+  </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -38,6 +62,7 @@
         <?php
             require_once 'layout/left-bar.php';
             require_once 'layout/top-bar.php';
+            
         ?>
 
         <!-- top navigation -->
@@ -48,28 +73,19 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Users <small>Some examples to get you started</small></h3>
+                
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              
             </div>
-
             <div class="clearfix"></div>
-
+            <h2>REGISTRATION TABLE<small><!-- /.php code -->   </small></h2>
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>REGISTRATION TABLE<small>Admin</small></h2>
+                    <h2>INSERT DATA : <small>ADMIN</small></h2>
+                  </br>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -87,94 +103,58 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <?php 
-                      if($this->session->flashdata('viewtable_msg'))
-                      {
-                  ?>
-                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('viewtable_msg'); ?></div>
-                  <?php
-                      }
-                  ?>
-
-                  <?php 
-                      if($this->session->flashdata('deletetable_msg'))
-                      {
-                  ?>
-                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('deletetable_msg'); ?></div>
-                  <?php
-                      }
-                  ?>
-
-                  <?php
-
-                  if($this->session->flashdata('insert_msg'))
-                  {
-
-                  ?>
-                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('insert_msg'); ?></div>
-                  <?php } ?>
-
-                  <div class="x_content">
-                    
-                  <div class="x_content">
-
-
-                    <p class="text-muted font-13 m-b-30">
-                      
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Phone</th>
-                          <th>Address</th>
-                          <th>Username</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-
-
-                      <tbody>
-                        <?php 
-
-                            
-                               foreach($data as $row) 
-                               { 
-                        ?>
-                        <tr>
-
-                          <td><?php echo $row->firstname.' '.$row->lastname; ?></td>
-                          <td><?php echo $row->email; ?></td>
-                          <td><?php echo $row->phone;  ?></td>
-                          <td><?php echo $row->address;  ?></td>
-                          <td><?php echo $row->username; ?></td>
-                           <td><a href=" <?php echo base_url('jc/viewdata/').$row->id; ?>">
-                              <i class=" fa fa-eye" aria-hidden="true"></i>
-                               </a>
-
-                            <a href="<?php echo base_url('jc/updatedata/').$row->id; ?>"> 
-                            <i class="fa fa-edit" aria-hidden="true"></i>
-                          </a>
-                          <a href="<?php echo base_url('jc/deleteData/'). $row->id;?>">
-                          <i class="fa fa-trash" aria-hidden="true"  name="delete"></i>
-                        </td>
-                           <!-- </td> -->
-
-                            <?php } ?>
-                        
-                      </tbody>
-                    </table>
+                 
+                  
+                 <!--  <?php //foreach($specific_data as $value){ ?> -->
+                  <form action="<?php echo base_url('jc/insert_action_data');?>" method="POST">
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>FIRST NAME</i></span>
+                  <input type="text" class="form-control" placeholder="Enter yourr firstname.."  name= "firstname" aria-describedby="basic-addon1"   >
                   </div>
-                </div>
+
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>LAST NAME</i></span>
+                  <input type="text" class="form-control" placeholder="Enter your lastname.."  name= "lastname" aria-describedby="basic-addon1"   >
+                  </div>
+
+
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>PHONE</i></span>
+                  <input type="text" class="form-control" placeholder="Enter your phone number.."  name= "phone" aria-describedby="basic-addon1"  >
+                  </div>
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>EMAIL</i></span>
+                  <input type="text" class="form-control" placeholder="change your email.."  name= "email" aria-describedby="basic-addon1"  >
+                  </div>
+
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>ADDRESS</i></span>
+                  <input type="text" class="form-control" placeholder="Enter your address.."  name= "address" aria-describedby="basic-addon1"  >
+                  </div>
+                  
+                  <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1"><i>USERNAME</i></span>
+                  <input type="text" class="form-control" placeholder="Enter your username.."  name= "username" aria-describedby="basic-addon1"  >
+                  </div>
+
+                 <div class="input-group">
+                 <span class="input-group-addon" id="basic-addon1"><i>PASSWORD</i></span>
+                 <input type="password" class="form-control"  placeholder="Enter your password.."  name= "password" aria-describedby="basic-addon1"></center>
               </div>
-
-
-
+              <div>
+                <div class="wrapper">
+              <input type="submit"  class="btn btn-default" >
+            </div>
+              </div>
+            </br>
+          </br>
              
-
+            <div>
+            </div>
+          
             </div>
           </div>
+         
         </div>
         <!-- /page content -->
 
