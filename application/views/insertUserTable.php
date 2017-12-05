@@ -109,7 +109,7 @@
                   <form action="<?php echo base_url('jc/insert_action_data');?>" method="POST">
                   <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1"><i>FIRST NAME</i></span>
-                  <input type="text" class="form-control" placeholder="Enter yourr firstname.."  name= "firstname" aria-describedby="basic-addon1"   >
+                  <input type="text" class="form-control" placeholder="Enter your firstname.."  name= "firstname" aria-describedby="basic-addon1"   >
                   </div>
 
                   <div class="input-group">

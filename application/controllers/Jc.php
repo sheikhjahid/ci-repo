@@ -127,8 +127,8 @@ class Jc extends CI_Controller {
 		$userdata=$this->session->userdata('user_details');
 		$data=array();	
 		$data=$userdata;
-        $data['data']=$this->user_model->showUser();
-       $this->load->view('data_dynamic',$data);
+        $data['data']=$this->user_model->showUser($userdata['id']);
+       	$this->load->view('data_dynamic',$data);
 
 	}//end of function
 
@@ -168,7 +168,7 @@ class Jc extends CI_Controller {
 
 	}//end of function
 
-	public function update_action_data($id)
+	public function update_action_data($id,$ajax='')
 	{
 		if(!$this->session->userdata('user_details'))
 		{
@@ -178,20 +178,28 @@ class Jc extends CI_Controller {
 		}//end of if
 		$userdata=$this->session->userdata('user_details');
 		$data=array();	
-		$data=$userdata;			
+		$data=$userdata;
+
+
 		$post=$this->input->post();
 		unset($post['update']);
 		$result=$this->user_model->update($id,$post);
 		if($result==1)
 		{
-			$this->session->set_flashdata('viewtable_msg','Userdata updated');
+			$this->session->set_flashdata('update_msg','Userdata updated successfully');
 			redirect('jc/viewtable');
 			die();
 		}
+		/*if(isset($state)==1)
+		{
+			echo 1;
+			die();
+		}*/
+
 
 	}
 
-	public function deleteData($id)
+	public function deleteData($id,$ajax='')
 	{
 		
 		if(!$this->session->userdata('user_details'))
@@ -206,14 +214,19 @@ class Jc extends CI_Controller {
 		$post=$this->input->post();
 		unset($post['delete']);
 		$query=$this->user_model->delete($id,$post);
-		if($query==1)
+		if($query==1 && $ajax=='')
 		{
-		$this->session->set_flashdata('deletetable_msg','Userdata deleted successfully');
-	    redirect('jc/viewtable',$data);
-	    die();
+			$this->session->set_flashdata('deletetable_msg','Userdata deleted successfully');
+	    	redirect('jc/viewtable',$data);
+	    	die();
+		}
+		if($ajax==1)
+		{
+			echo 1;
+			die();
 		}
 	    
-	}//end of fuunction
+	}//end of function
 
 	public function profile($username)
 	{
@@ -289,16 +302,7 @@ class Jc extends CI_Controller {
       	$userdata=$this->session->userdata('user_details');
       	$data=array();
       	$data=$userdata;
-      	/*$post=$this->input->post();
-      	unset('insertTable');
-      	$query=$this->user_model->insertTable($post);
-      	if($query==1)
-      	{
-      		$this->session->set_flashdata('insert_msg','Data inserted successfully');
-      		redirect('jc/viewtable',$data);
-      		die();
-      	}*/
-      	//$data['insert_data']=$this->user_model->inserTable_();
+      	
       	$this->load->view('insertUserTable',$data);
 
       }

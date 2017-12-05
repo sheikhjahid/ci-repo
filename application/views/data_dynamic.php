@@ -87,11 +87,12 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+                  <div class="ajax-msg"></div>
                   <?php 
-                      if($this->session->flashdata('viewtable_msg'))
+                      if($this->session->flashdata('update_msg'))
                       {
                   ?>
-                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('viewtable_msg'); ?></div>
+                        <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('update_msg'); ?></div>
                   <?php
                       }
                   ?>
@@ -100,7 +101,7 @@
                       if($this->session->flashdata('deletetable_msg'))
                       {
                   ?>
-                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('deletetable_msg'); ?></div>
+                  <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('deletetable_msg'); ?></div>
                   <?php
                       }
                   ?>
@@ -142,7 +143,7 @@
                                foreach($data as $row) 
                                { 
                         ?>
-                        <tr>
+                        <tr id="tr-<?php echo $row->id; ?>">
 
                           <td><?php echo $row->firstname.' '.$row->lastname; ?></td>
                           <td><?php echo $row->email; ?></td>
@@ -156,8 +157,9 @@
                             <a href="<?php echo base_url('jc/updatedata/').$row->id; ?>"> 
                             <i class="fa fa-edit" aria-hidden="true"></i>
                           </a>
-                          <a href="<?php echo base_url('jc/deleteData/'). $row->id;?>">
-                          <i class="fa fa-trash" aria-hidden="true"  name="delete"></i>
+                            <a href="javascript:void(0);" class="del-user" data-id="<?php echo $row->id; ?>">
+                            <i class="fa fa-trash" aria-hidden="true"  name="delete"></i>
+                          </a>
                         </td>
                            <!-- </td> -->
 
@@ -218,6 +220,7 @@
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('/'); ?>public/build/js/custom.min.js"></script>
+    <script src="<?php echo base_url('/'); ?>public/mycustom.js"></script>
 
   </body>
 </html>

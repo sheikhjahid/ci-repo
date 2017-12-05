@@ -23,9 +23,10 @@ class user_model extends CI_Model
           $str = $this->db->insert('registration', $postArr);
           return $this->db->insert_id();
         }       
-        public function showUser()
+        public function showUser($id='')
         {
             $this->db->select("*");
+            $this->db->where_not_in('id',$id);
             $query=$this->db->get('registration');
             $result=$query->result();
 
@@ -65,7 +66,7 @@ class user_model extends CI_Model
             $this->db->where('username',$username);
             $query=$this->db->get('registration');
             return $query->result();
-        }
+        }//end of function
         
        public function insertTable($post)
        {
@@ -74,5 +75,7 @@ class user_model extends CI_Model
 
         return $query;
 
-       }
+       }//end of function
+
+
 }//end of class

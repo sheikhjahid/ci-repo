@@ -106,7 +106,8 @@
                  
                   
                   <?php foreach($specific_data as $value){ ?>
-                  <form action="<?php echo base_url('jc/update_action_data/').$row->id;?>" method="POST">
+                   <form action="<?php echo base_url('jc/update_action_data/').$row->id;?>" method="POST"> 
+                  <!-- <form id="update_id"  method="POST"> -->
                   <div class="input-group">
                   <span class="input-group-addon" id="basic-addon1"><i>FIRST NAME</i></span>
                   <input type="text" class="form-control" placeholder="change your first name.."  name= "firstname" aria-describedby="basic-addon1" value="<?php echo $value->firstname; ?>"  >
@@ -140,7 +141,7 @@
             </br>
           </br>
              <div class="wrapper">
-              <input type="submit" name="update" class="btn btn-default" value="UPDATE">
+              <input type="submit" name="update" class="btn btn-default" value="UPDATE"   data-id="<?php echo $value->id; ?>"  >
             </div>
             <div>
             </div>
@@ -192,6 +193,6 @@
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url('/'); ?>public/build/js/custom.min.js"></script>
-
+     <script src="<?php echo base_url('/'); ?>public/mycustom.js"></script>
   </body>
 </html>

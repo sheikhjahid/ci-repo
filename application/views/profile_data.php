@@ -150,7 +150,13 @@ button:hover, a:hover {
                     <div class="clearfix"></div>
                   </div>
       <!-- <div class="container"> -->
-        
+        <?php if($this->session->flashdata('upload_msg')){ ?>
+        <div class="alert alert-warning alert-dismissible fade in" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><?php echo $this->session->flashdata('upload_msg'); ?></div>
+                  <?php
+                      }
+                  ?>
+
+
       <div class="card">
        <?php echo form_open_multipart('jc/do_upload');?>
     <!-- <!--  <a href="<?php //echo base_url('jc\do_upload'); ?>" class="fa fa-instagram" type="file"></a> -->
